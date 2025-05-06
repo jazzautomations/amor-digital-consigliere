@@ -1,73 +1,143 @@
-# Welcome to your Lovable project
 
-## Project info
+# FodaCerta™ - Conselheiro Digital para Relacionamentos
 
-**URL**: https://lovable.dev/projects/f63dc2e7-c3b2-40b6-b23d-3b324fbe26c3
+## Sobre o projeto
 
-## How can I edit this code?
+FodaCerta™ é uma plataforma que utiliza inteligência artificial para analisar perfis e conversas, oferecendo insights e sugestões para melhorar seus relacionamentos. A aplicação permite aos usuários:
 
-There are several ways of editing your application.
+- Analisar perfis de redes sociais para entender interesses e padrões de comunicação
+- Extrair texto de screenshots de conversas para análise
+- Receber recomendações personalizadas e sugestões de resposta
+- Gerenciar assinaturas e créditos para usar os serviços
 
-**Use Lovable**
+## Tecnologias utilizadas
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f63dc2e7-c3b2-40b6-b23d-3b324fbe26c3) and start prompting.
+- **Framework**: React.js com TypeScript
+- **Estilização**: Tailwind CSS com componentes customizados
+- **Roteamento**: React Router
+- **Gerenciamento de estado**: React Query
+- **Autenticação e banco de dados**: Supabase
+- **Processamento de pagamentos**: Stripe
+- **OCR (Reconhecimento de texto em imagens)**: Google Vision API e Tesseract.js
+- **Análise de texto**: OpenAI GPT-4o-mini
 
-Changes made via Lovable will be committed automatically to this repo.
+## Requisitos do sistema
 
-**Use your preferred IDE**
+- Node.js 18.0 ou superior
+- npm 9.0 ou superior
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Configuração do ambiente local
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 1. Clone o repositório
 
-Follow these steps:
+```bash
+git clone https://github.com/seu-usuario/fodacerta.git
+cd fodacerta
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 2. Instale as dependências
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 3. Configure as variáveis de ambiente
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+OPENAI_API_KEY=
+GOOGLE_CLOUD_VISION_KEY=
+```
+
+### 4. Execute o servidor de desenvolvimento
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Acesse a aplicação em [http://localhost:3000](http://localhost:3000)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Build para produção
 
-**Use GitHub Codespaces**
+Para gerar uma versão otimizada para produção:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+npm run build
+```
 
-## What technologies are used for this project?
+Para visualizar a versão de produção localmente:
 
-This project is built with:
+```bash
+npm run preview
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Deploy
 
-## How can I deploy this project?
+### Deploy com Vercel
 
-Simply open [Lovable](https://lovable.dev/projects/f63dc2e7-c3b2-40b6-b23d-3b324fbe26c3) and click on Share -> Publish.
+A forma mais fácil de fazer deploy desta aplicação é usando a plataforma Vercel:
 
-## Can I connect a custom domain to my Lovable project?
+1. Crie uma conta na [Vercel](https://vercel.com)
+2. Instale a CLI da Vercel: `npm i -g vercel`
+3. Execute na raiz do projeto: `vercel` e siga as instruções
 
-Yes, you can!
+### Ou usando Docker (opcional)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+O projeto inclui um Dockerfile simples para containerização:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```bash
+# Construir a imagem
+docker build -t fodacerta:latest .
+
+# Executar o container
+docker run -p 3000:3000 fodacerta:latest
+```
+
+## Estrutura do projeto
+
+```
+/src
+  /components
+    /dashboard      # Componentes específicos do dashboard
+    /layout         # Componentes de layout como Header, Footer
+    /ui             # Componentes base de UI
+  /hooks            # Hooks personalizados React
+  /lib              # Utilitários e configurações de integração
+  /pages            # Componentes de página para cada rota
+    /api            # Rotas API
+    /auth           # Páginas relacionadas à autenticação
+    /dashboard      # Páginas do painel de usuário
+  /styles           # Estilos globais
+  /utils            # Funções utilitárias
+```
+
+## Configuração do Supabase
+
+O projeto utiliza o Supabase para autenticação e armazenamento de dados. As principais tabelas incluem:
+
+- `users`: Informações do usuário (id, nome, email, avatar_url, planos, créditos)
+- `analyses`: Análises realizadas (id, user_id, tipo, input, resultado, criado_em)
+- `credits_history`: Histórico de créditos (id, user_id, créditos_usados, tipo, data)
+
+## Configuração do Stripe
+
+O Stripe é usado para processar pagamentos de assinaturas e compras de créditos. Os planos configurados são:
+
+- Plano Mensal: R$29,90/mês
+- Plano Anual: R$299,90/ano
+
+## Manutenção e suporte
+
+Para reportar bugs ou solicitar novas funcionalidades, abra uma issue no repositório GitHub do projeto.
+
+## Licença
+
+Este projeto é proprietário e todos os direitos são reservados. Uso não autorizado é proibido.
+
+© 2025 FodaCerta™. Todos os direitos reservados.
