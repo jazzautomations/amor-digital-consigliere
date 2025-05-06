@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,74 +9,35 @@
 
 @layer base {
   :root {
-    --background: 240 33% 98%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 83%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 83%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 83%;
 
-    --primary: 252 75% 75%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 355 100% 62%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 252 16% 54%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 187 100% 50%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 187 100% 50%;
+    --accent-foreground: 0 0% 0%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 252 75% 75%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 187 100% 50%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 252 75% 75%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 252 16% 54%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 252 75% 75%;
   }
 }
 
@@ -85,20 +47,71 @@
   }
 
   body {
-    @apply bg-background text-foreground font-exo;
+    @apply bg-black text-cyber-light-gray font-inter;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-orbitron font-bold;
+    @apply font-inter font-extrabold;
   }
 }
 
 @layer components {
   .glass-effect {
-    @apply bg-white bg-opacity-20 backdrop-blur-lg rounded-lg border border-white border-opacity-20 shadow-lg;
+    @apply bg-white bg-opacity-5 backdrop-blur-lg rounded-lg border border-white border-opacity-20 shadow-lg;
   }
   
-  .neomorphic {
-    @apply bg-brand-soft-gray rounded-lg shadow-[5px_5px_15px_rgba(0,0,0,0.1),-5px_-5px_15px_rgba(255,255,255,0.8)];
+  .neon-text-red {
+    @apply text-cyber-neon-red;
+    text-shadow: 0 0 5px #FF3E4E, 0 0 10px #FF3E4E;
+  }
+
+  .neon-text-cyan {
+    @apply text-cyber-neon-cyan;
+    text-shadow: 0 0 5px #00E1FF, 0 0 10px #00E1FF;
+  }
+  
+  .neon-border-red {
+    @apply border border-cyber-neon-red;
+    box-shadow: 0 0 5px #FF3E4E, inset 0 0 5px #FF3E4E;
+  }
+  
+  .neon-border-cyan {
+    @apply border border-cyber-neon-cyan;
+    box-shadow: 0 0 5px #00E1FF, inset 0 0 5px #00E1FF;
+  }
+  
+  .neon-button-red {
+    @apply bg-transparent border border-cyber-neon-red text-cyber-neon-red rounded-md px-4 py-2 transition-all duration-300 hover:bg-cyber-neon-red hover:text-black;
+    box-shadow: 0 0 5px #FF3E4E, inset 0 0 5px #FF3E4E;
+  }
+  
+  .neon-button-cyan {
+    @apply bg-transparent border border-cyber-neon-cyan text-cyber-neon-cyan rounded-md px-4 py-2 transition-all duration-300 hover:bg-cyber-neon-cyan hover:text-black;
+    box-shadow: 0 0 5px #00E1FF, inset 0 0 5px #00E1FF;
+  }
+  
+  .vip-button {
+    @apply bg-gradient-to-r from-cyber-neon-red to-cyber-neon-cyan text-black font-bold py-2 px-6 rounded-md transition-all duration-300;
+    animation: neon-pulse 2s infinite;
+  }
+
+  .vip-button:hover {
+    @apply transform -translate-y-1;
+    box-shadow: 0 0 15px #FF3E4E, 0 0 30px #00E1FF;
+  }
+  
+  .cyber-card {
+    @apply bg-black bg-opacity-70 border border-gray-700 rounded-lg overflow-hidden relative;
+    box-shadow: 0 0 10px rgba(0, 225, 255, 0.3);
+  }
+  
+  .cyber-card:hover {
+    box-shadow: 0 0 20px rgba(255, 62, 78, 0.5);
+  }
+  
+  .cyber-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1;
+    background: linear-gradient(to right, #FF3E4E, #00E1FF);
   }
 }

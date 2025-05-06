@@ -13,7 +13,7 @@ FodaCerta™ é uma plataforma que utiliza inteligência artificial para analisa
 ## Tecnologias utilizadas
 
 - **Framework**: React.js com TypeScript
-- **Estilização**: Tailwind CSS com componentes customizados
+- **Estilização**: Tailwind CSS com tema cyberpunk personalizado
 - **Roteamento**: React Router
 - **Gerenciamento de estado**: React Query
 - **Autenticação e banco de dados**: Supabase
@@ -46,13 +46,12 @@ npm install
 Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-OPENAI_API_KEY=
-GOOGLE_CLOUD_VISION_KEY=
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+VITE_SUPABASE_SERVICE_ROLE_KEY=
+VITE_STRIPE_PUBLISHABLE_KEY=
+VITE_OPENAI_API_KEY=
+VITE_GOOGLE_CLOUD_VISION_KEY=
 ```
 
 ### 4. Execute o servidor de desenvolvimento
@@ -61,7 +60,7 @@ GOOGLE_CLOUD_VISION_KEY=
 npm run dev
 ```
 
-Acesse a aplicação em [http://localhost:3000](http://localhost:3000)
+Acesse a aplicação em [http://localhost:8080](http://localhost:8080)
 
 ## Build para produção
 
@@ -77,28 +76,6 @@ Para visualizar a versão de produção localmente:
 npm run preview
 ```
 
-## Deploy
-
-### Deploy com Vercel
-
-A forma mais fácil de fazer deploy desta aplicação é usando a plataforma Vercel:
-
-1. Crie uma conta na [Vercel](https://vercel.com)
-2. Instale a CLI da Vercel: `npm i -g vercel`
-3. Execute na raiz do projeto: `vercel` e siga as instruções
-
-### Ou usando Docker (opcional)
-
-O projeto inclui um Dockerfile simples para containerização:
-
-```bash
-# Construir a imagem
-docker build -t fodacerta:latest .
-
-# Executar o container
-docker run -p 3000:3000 fodacerta:latest
-```
-
 ## Estrutura do projeto
 
 ```
@@ -109,8 +86,11 @@ docker run -p 3000:3000 fodacerta:latest
     /ui             # Componentes base de UI
   /hooks            # Hooks personalizados React
   /lib              # Utilitários e configurações de integração
+    /supabase.ts    # Cliente Supabase  
+    /openai.ts      # Cliente OpenAI
+    /ocr.ts         # Função de OCR
   /pages            # Componentes de página para cada rota
-    /api            # Rotas API
+    /api            # Funções para API routes
     /auth           # Páginas relacionadas à autenticação
     /dashboard      # Páginas do painel de usuário
   /styles           # Estilos globais
@@ -131,6 +111,55 @@ O Stripe é usado para processar pagamentos de assinaturas e compras de crédito
 
 - Plano Mensal: R$29,90/mês
 - Plano Anual: R$299,90/ano
+
+## Estilização e personalização
+
+O projeto utiliza um tema cyberpunk personalizado com as seguintes cores principais:
+
+- Fundo preto: #000000
+- Texto cinza-claro: #D3D3D3
+- Neon Red (destaque): #FF3E4E
+- Neon Cyan (destaque): #00E1FF
+
+Para modificar as cores do tema, edite o arquivo `tailwind.config.ts` na seção `colors.cyber`.
+
+A fonte principal é Inter, configurada com:
+- Peso 400 para textos do corpo
+- Peso 800 para títulos
+
+## Exemplos de chamadas à API
+
+### Analisar uma conversa
+```typescript
+const analyzeConversation = async (text: string) => {
+  const response = await fetch('/api/conversation-analysis', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session?.access_token}`
+    },
+    body: JSON.stringify({ text })
+  });
+  
+  return await response.json();
+};
+```
+
+### Analisar um perfil
+```typescript
+const analyzeProfile = async (handle: string, platform: string) => {
+  const response = await fetch('/api/profile-analysis', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session?.access_token}`
+    },
+    body: JSON.stringify({ handle, platform })
+  });
+  
+  return await response.json();
+};
+```
 
 ## Manutenção e suporte
 

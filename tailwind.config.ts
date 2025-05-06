@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,16 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				// Cyberpunk theme colors
+				cyber: {
+					black: '#000000',
+					'light-gray': '#D3D3D3',
+					'neon-red': '#FF3E4E',
+					'neon-cyan': '#00E1FF'
 				},
+				// Keeping existing brand colors
 				brand: {
 					purple: '#9b87f5',
 					'purple-dark': '#7E69AB',
@@ -105,16 +102,44 @@ export default {
 						opacity: '0.8',
 						boxShadow: '0 0 20px 4px rgba(155, 135, 245, 0.9)'
 					},
-				}
+				},
+				'neon-pulse': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px #FF3E4E, 0 0 15px #FF3E4E'
+					},
+					'50%': { 
+						boxShadow: '0 0 20px #FF3E4E, 0 0 30px #FF3E4E'
+					},
+				},
+				'neon-pulse-cyan': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px #00E1FF, 0 0 15px #00E1FF'
+					},
+					'50%': { 
+						boxShadow: '0 0 20px #00E1FF, 0 0 30px #00E1FF'
+					},
+				},
+				'halo-rotate': {
+					'0%': { 
+						transform: 'rotate(0deg)' 
+					},
+					'100%': { 
+						transform: 'rotate(360deg)' 
+					}
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'pulse-glow': 'pulse-glow 2s ease-in-out infinite'
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
+				'neon-pulse-cyan': 'neon-pulse-cyan 2s ease-in-out infinite',
+				'halo-rotate': 'halo-rotate 15s linear infinite',
 			},
 			fontFamily: {
 				'orbitron': ['Orbitron', 'sans-serif'],
 				'exo': ['Exo 2', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
 			}
 		}
 	},
