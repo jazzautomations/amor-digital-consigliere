@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import Layout from '@/components/layout/Layout'
+import Layout from '../components/layout/Layout'
 
 export default function Login() {
   const [aceitou, setAceitou] = useState(false)
@@ -15,7 +15,10 @@ export default function Login() {
       provider: 'google',
     })
 
-    if (error) console.error('Erro no login:', error)
+    if (error) {
+      console.error('Erro no login:', error)
+      alert('Erro ao tentar logar com Google. Confere o Supabase aí.')
+    }
   }
 
   return (
@@ -32,7 +35,7 @@ export default function Login() {
           <span>
             Eu aceito os{' '}
             <a href="/termos" className="underline text-cyber-neon-cyan">Termos</a> e a{' '}
-            <a href="/privacidade" className="underline text-cyber-neon-cyan">Privacidade</a>
+            <a href="/privacidade" className="underline text-cyber-neon-cyan">Política de Privacidade</a>
           </span>
         </label>
 
