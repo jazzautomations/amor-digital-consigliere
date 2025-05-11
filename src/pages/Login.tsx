@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
@@ -55,16 +54,11 @@ const Login = () => {
     setIsGoogleLoading(true);
 
     try {
-      const { data, error: oauthError } = await supabase.auth.signInWithOAuth({ 
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`
-        }
+      await supabase.auth.signInWithOAuth({ 
+        provider: 'google'
       });
-
-      if (oauthError) throw oauthError;
       
-      // No need to navigate here as Supabase will handle the redirect
+      // Não é necessário navegação aqui, pois o Supabase e o AuthCallback cuidarão disso
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao fazer login com Google");
       console.error("Google login error:", err);
