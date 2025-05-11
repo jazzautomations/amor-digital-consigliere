@@ -44,6 +44,7 @@ const Login = () => {
       navigate("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao fazer login");
+      console.error("Login error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +55,7 @@ const Login = () => {
     setIsGoogleLoading(true);
 
     try {
-      const { error: oauthError } = await supabase.auth.signInWithOAuth({ 
+      const { data, error: oauthError } = await supabase.auth.signInWithOAuth({ 
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/dashboard`
@@ -66,6 +67,7 @@ const Login = () => {
       // No need to navigate here as Supabase will handle the redirect
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao fazer login com Google");
+      console.error("Google login error:", err);
       setIsGoogleLoading(false);
     }
   };
