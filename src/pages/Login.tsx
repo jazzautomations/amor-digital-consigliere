@@ -1,31 +1,30 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import { supabase } from "@/lib/supabaseClient";
+import { toast } from "sonner";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
 
-    // Simulação de login - será substituído pela integração com Supabase
     try {
-      // Simular um atraso na rede
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      // Validação básica
       if (!email.trim() || !password.trim()) {
         throw new Error("Por favor, preencha todos os campos");
       }
@@ -34,17 +33,40 @@ const Login = () => {
         throw new Error("Por favor, insira um email válido");
       }
 
-      if (password.length < 6) {
-        throw new Error("A senha deve ter pelo menos 6 caracteres");
-      }
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-      console.log("Login bem-sucedido!", { email });
-      // Após integração com Supabase, redirecionar para o dashboard
-      // navigate("/dashboard");
+      if (signInError) throw signInError;
+
+      toast.success("Login realizado com sucesso!");
+      navigate("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao fazer login");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError(null);
+    setIsGoogleLoading(true);
+
+    try {
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({ 
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
+      });
+
+      if (oauthError) throw oauthError;
+      
+      // No need to navigate here as Supabase will handle the redirect
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro ao fazer login com Google");
+      setIsGoogleLoading(false);
     }
   };
 
@@ -151,15 +173,15 @@ const Login = () => {
             <Button
               type="button"
               className="w-full border border-gray-700 bg-transparent hover:bg-gray-900"
-              disabled={isLoading}
-              onClick={() => console.log("Login com Google")}
+              disabled={isGoogleLoading}
+              onClick={handleGoogleLogin}
             >
               <img
                 src="https://www.svgrepo.com/show/506498/google.svg"
                 alt="Google"
                 className="w-5 h-5 mr-2"
               />
-              Google
+              {isGoogleLoading ? "Conectando..." : "Google"}
             </Button>
           </form>
         </div>
